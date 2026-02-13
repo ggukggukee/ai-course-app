@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
       Status: string;
       PaymentId: string;
     };
-
+    console.log(body);
     if (body.Status === "CONFIRMED") {
       const payment = await prisma.payment.findFirst({
         where: { paymentId: body.PaymentId },
