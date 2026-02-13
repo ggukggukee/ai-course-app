@@ -1,0 +1,256 @@
+@reference "tailwindcss";
+
+.ProseMirror {
+  /* Image Block */
+  figure[data-type="imageBlock"] {
+    margin: 0;
+
+    img {
+      @apply rounded block w-full;
+    }
+  }
+
+  /* Block Quote */
+  figure[data-type="blockquoteFigure"] {
+    @apply my-14 text-black dark:text-white;
+  }
+
+  & > blockquote,
+  [data-type="blockquoteFigure"] {
+    blockquote {
+      margin: 0;
+
+      & > * {
+        @apply first:mt-0 last:mb-0;
+      }
+    }
+  }
+
+  /* Columns */
+  [data-type="columns"] {
+    @apply grid gap-4 mt-14 mb-12;
+
+    &.layout-sidebar-left {
+      grid-template-columns: 40fr 60fr;
+    }
+
+    &.layout-sidebar-right {
+      grid-template-columns: 60fr 40fr;
+    }
+
+    &.layout-two-column {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  [data-type="column"] {
+    @apply overflow-auto;
+  }
+
+  /* Details */
+  [data-type="details"] {
+    @apply flex gap-1 my-6 mx-auto p-2 border border-gray-300 rounded;
+
+    summary {
+      @apply font-bold block;
+    }
+
+    > button {
+      @apply bg-transparent border-none cursor-pointer flex items-center justify-center rounded text-xs h-5 w-5;
+
+      &:hover {
+        @apply dark:bg-gray-800 bg-gray-300;
+      }
+
+      &::before {
+        content: "\25B6";
+      }
+    }
+
+    &.is-open > button::before {
+      @apply rotate-90;
+    }
+
+    > div {
+      @apply flex flex-col gap-4 w-full;
+
+      > [data-type="detailsContent"] > :last-child {
+        @apply mb-2;
+      }
+    }
+
+    [data-type="details"] {
+      @apply my-2 mx-0;
+    }
+  }
+}
+
+.ProseMirror .node-imageUpload,
+.ProseMirror .node-carouselUpload,
+.ProseMirror .node-doubleUpload,
+.ProseMirror .node-fileUpload {
+  border-radius: 0.25rem;
+  border-width: 2px;
+  border-style: dotted;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
+  --tw-border-opacity: 0.1;
+  padding: 0.5rem;
+}
+
+:is(.dark .ProseMirror .node-imageUpload),
+:is(.dark .ProseMirror .node-carouselUpload),
+:is(.dark .ProseMirror .node-doubleUpload),
+:is(.dark .ProseMirror .node-fileUpload) {
+  --tw-border-opacity: 1;
+  border-color: rgb(115 115 115 / var(--tw-border-opacity));
+}
+
+.ProseMirror .node-imageUpload,
+.ProseMirror .node-carouselUpload,
+.ProseMirror .node-doubleUpload,
+.ProseMirror .node-fileUpload {
+  transition: border 0.16s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+
+.ProseMirror .node-imageUpload:hover,
+.ProseMirror .node-carouselUpload:hover,
+.ProseMirror .node-doubleUpload:hover,
+.ProseMirror .node-fileUpload:hover {
+  --tw-border-opacity: 0.3;
+}
+
+.ProseMirror .node-imageUpload.has-focus,
+.ProseMirror .node-imageUpload:has(.is-active),
+.ProseMirror .node-carouselUpload.has-focus,
+.ProseMirror .node-carouselUpload:has(.is-active),
+.ProseMirror .node-doubleUpload.has-focus,
+.ProseMirror .node-doubleUpload:has(.is-active),
+.ProseMirror .node-fileUpload.has-focus,
+.ProseMirror .node-fileUpload:has(.is-active) {
+  --tw-border-opacity: 0.4;
+}
+
+.ProseMirror .node-imageBlock img,
+.ProseMirror .node-vid video,
+.ProseMirror .node-carousel .carousel,
+.ProseMirror .node-youtube iframe,
+.ProseMirror .node-iframe iframe,
+.ProseMirror .node-double > div {
+  overflow: hidden;
+  border-radius: 0.75rem;
+  border-width: 2px;
+  border-color: transparent;
+}
+
+.ProseMirror .node-imageBlock:hover img,
+.ProseMirror .node-vid:hover video,
+.ProseMirror .node-carousel:hover .carousel,
+.ProseMirror .node-youtube:hover iframe,
+.ProseMirror .node-iframe:hover iframe,
+.ProseMirror .node-double:hover > div {
+  border-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgb(245 245 245 / var(--tw-border-opacity));
+}
+
+:is(.dark .ProseMirror .node-imageBlock:hover img),
+:is(.dark .ProseMirror .node-vid:hover video),
+:is(.dark .ProseMirror .node-carousel:hover .carousel),
+:is(.dark .ProseMirror .node-youtube:hover iframe),
+:is(.dark .ProseMirror .node-iframe:hover iframe),
+:is(.dark .ProseMirror .node-double:hover > div) {
+  --tw-border-opacity: 1;
+  border-color: rgb(23 23 23 / var(--tw-border-opacity));
+}
+
+.ProseMirror .node-imageBlock.has-focus img,
+.ProseMirror .node-imageBlock:has(.is-active) img,
+.ProseMirror .node-vid.has-focus video,
+.ProseMirror .node-vid:has(.is-active) video,
+.ProseMirror .node-carousel.has-focus .carousel,
+.ProseMirror .node-carousel:has(.is-active) .carousel,
+.ProseMirror .node-youtube.has-focus iframe,
+.ProseMirror .node-youtube:has(.is-active) iframe,
+.ProseMirror .node-iframe.has-focus iframe,
+.ProseMirror .node-iframe:has(.is-active) iframe,
+.ProseMirror .node-double.has-focus > div,
+.ProseMirror .node-double:has(.is-active) > div {
+  border-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgb(38 38 38 / var(--tw-border-opacity));
+}
+
+:is(.dark .ProseMirror .node-imageBlock.has-focus img),
+:is(.dark .ProseMirror .node-imageBlock:has(.is-active) img),
+:is(.dark .ProseMirror .node-vid.has-focus video),
+:is(.dark .ProseMirror .node-vid:has(.is-active) video),
+:is(.dark .ProseMirror .node-carousel.has-focus .carousel),
+:is(.dark .ProseMirror .node-carousel:has(.is-active) .carousel),
+:is(.dark .ProseMirror .node-youtube.has-focus iframe),
+:is(.dark .ProseMirror .node-youtube:has(.is-active) iframe),
+:is(.dark .ProseMirror .node-iframe.has-focus iframe),
+:is(.dark .ProseMirror .node-iframe:has(.is-active) iframe),
+:is(.dark .ProseMirror .node-double.has-focus > div),
+:is(.dark .ProseMirror .node-double:has(.is-active) > div) {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 229 229 / var(--tw-border-opacity));
+}
+
+.ProseMirror .ProseMirror-gapcursor + .node-imageBlock,
+.ProseMirror .ProseMirror-gapcursor + .node-vid,
+.ProseMirror .ProseMirror-gapcursor + .node-imageUpload,
+.ProseMirror .ProseMirror-gapcursor + .node-carouselUpload,
+.ProseMirror .ProseMirror-gapcursor + .node-doubleUpload,
+.ProseMirror .ProseMirror-gapcursor + .node-youtube,
+.ProseMirror .ProseMirror-gapcursor + .node-iframe,
+.ProseMirror .ProseMirror-gapcursor + .node-carousel,
+.ProseMirror .ProseMirror-gapcursor + .node-double,
+.ProseMirror .ProseMirror-gapcursor + [data-type="blockquoteFigure"] {
+  outline-color: #404040;
+}
+
+.ProseMirror .ProseMirror-gapcursor + .node-imageBlock:hover,
+.ProseMirror .ProseMirror-gapcursor + .node-vid:hover,
+.ProseMirror .ProseMirror-gapcursor + .node-imageUpload:hover,
+.ProseMirror .ProseMirror-gapcursor + .node-carouselUpload:hover,
+.ProseMirror .ProseMirror-gapcursor + .node-doubleUpload:hover,
+.ProseMirror .ProseMirror-gapcursor + .node-youtube:hover,
+.ProseMirror .ProseMirror-gapcursor + .node-iframe:hover,
+.ProseMirror .ProseMirror-gapcursor + .node-carousel:hover,
+.ProseMirror .ProseMirror-gapcursor + .node-double:hover,
+.ProseMirror .ProseMirror-gapcursor + [data-type="blockquoteFigure"]:hover {
+  outline-color: #525252;
+}
+
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-imageBlock),
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-vid),
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-imageUpload),
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-carouselUpload),
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-doubleUpload),
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-youtube),
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-iframe),
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-carousel),
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-double),
+:is(
+  .dark .ProseMirror .ProseMirror-gapcursor + [data-type="blockquoteFigure"]
+) {
+  outline-color: #d4d4d4;
+}
+
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-imageBlock:hover),
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-vid:hover),
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-imageUpload:hover),
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-carouselUpload:hover),
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-doubleUpload:hover),
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-youtube:hover),
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-iframe:hover),
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-carousel:hover),
+:is(.dark .ProseMirror .ProseMirror-gapcursor + .node-double:hover),
+:is(
+  .dark
+    .ProseMirror
+    .ProseMirror-gapcursor
+    + [data-type="blockquoteFigure"]:hover
+) {
+  outline-color: #a3a3a3;
+}

@@ -1,0 +1,224 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Enroll {
+  id        Int       @id @default(autoincrement())
+  email     String?
+  name      String?
+  phone     String?
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model User {
+  id            String            @id
+  name          String
+  email         String
+  emailVerified Boolean           @default(false)
+  image         String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  orders        Order[]
+  pageComments  BookPageComment[]
+  pageRatings   BookPageRating[]
+  role          String?
+  banned        Boolean?
+  banReason     String?
+  banExpires    DateTime?
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id             String   @id
+  expiresAt      DateTime
+  token          String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  ipAddress      String?
+  userAgent      String?
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  impersonatedBy String?
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+model Order {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  itemId    Int
+  item      Item     @relation(fields: [itemId], references: [id])
+  price     Int
+  currency  String
+  status    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  payments Payment[]
+
+  @@index([userId])
+}
+
+model Payment {
+  id         Int      @id @default(autoincrement())
+  orderId    Int
+  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  amount     Int
+  currency   String
+  status     String
+  paymentId  String
+  paymentUrl String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([orderId])
+}
+
+model BookChapter {
+  id        Int        @id @default(autoincrement())
+  title     String
+  isDeleted Boolean    @default(false)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  pages     BookPage[]
+  items     Item[]
+}
+
+model BookPage {
+  id        Int               @id @default(autoincrement())
+  chapterId Int
+  chapter   BookChapter       @relation(fields: [chapterId], references: [id])
+  title     String
+  tag       String
+  desc      String
+  img       String
+  type      String[]
+  number    Int
+  isDeleted Boolean           @default(false)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  levels    BookLevel[]
+  comments  BookPageComment[]
+  ratings   BookPageRating[]
+
+  @@index([chapterId])
+}
+
+model BookPageRating {
+  id         Int      @id @default(autoincrement())
+  bookPageId Int
+  bookPage   BookPage @relation(fields: [bookPageId], references: [id])
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  score      Int
+  comment    String?
+  isDeleted  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([bookPageId])
+  @@index([userId])
+}
+
+model BookPageComment {
+  id         Int               @id @default(autoincrement())
+  bookPageId Int
+  bookPage   BookPage          @relation(fields: [bookPageId], references: [id])
+  userId     String
+  user       User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content    String
+  parentId   Int?
+  parent     BookPageComment?  @relation("Replies", fields: [parentId], references: [id])
+  replies    BookPageComment[] @relation("Replies")
+  replyToId  Int?
+  replyTo    BookPageComment?  @relation("ReplyTo", fields: [replyToId], references: [id])
+  repliedBy  BookPageComment[] @relation("ReplyTo")
+  isDeleted  Boolean           @default(false)
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+
+  @@index([bookPageId])
+  @@index([userId])
+  @@index([parentId])
+  @@index([replyToId])
+}
+
+model BookLevel {
+  id        Int      @id @default(autoincrement())
+  pageId    Int
+  page      BookPage @relation(fields: [pageId], references: [id])
+  title     String
+  content   String
+  solid     Boolean  @default(false)
+  isDeleted Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([pageId])
+}
+
+model Item {
+  id        Int         @id @default(autoincrement())
+  chapterId Int
+  chapter   BookChapter @relation(fields: [chapterId], references: [id])
+  price     Int
+  currency  String
+  status    String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  orders Order[]
+
+  @@index([chapterId])
+}
