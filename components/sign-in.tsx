@@ -34,15 +34,28 @@ export function SignIn() {
 
   return (
     <CardForm
-      buttonText="Войти"
-      buttonLoadingText="Загрузка..."
+      buttonText='Войти'
+      buttonLoadingText='Загрузка...'
       title='Войти'
       description='Введите ваш email и пароль для доступа к вашему аккаунту'
       formSchema={formSchema}
       defaultValues={{ email: "", password: "" }}
       fields={[
         { name: "email", label: "Email", type: "email", autoComplete: "email" },
-        { name: "password", label: "Пароль", type: "password", autoComplete: "current-password" },
+        {
+          name: "password",
+          label: "Пароль",
+          type: "password",
+          autoComplete: "current-password",
+          link: (
+            <Link
+              href='/forgot-password'
+              className='text-sm text-primary hover:underline'
+            >
+              Забыли пароль?
+            </Link>
+          ),
+        },
       ]}
       footer={
         <Text size='sm' className='text-center'>

@@ -39,6 +39,7 @@ interface CardFormField<T extends FieldValues> {
   autoComplete?: string;
   description?: string;
   type?: string;
+  link?: React.ReactNode;
 }
 
 interface CardFormProps<T extends FieldValues> {
@@ -80,7 +81,12 @@ export function CardForm<T extends FieldValues>({
     try {
       const result = await action(data);
 
-      if (typeof result === "object" && result !== null && "message" in result && result.message) {
+      if (
+        typeof result === "object" &&
+        result !== null &&
+        "message" in result &&
+        result.message
+      ) {
         throw new Error(result.message);
       }
     } catch (error) {
@@ -108,9 +114,18 @@ export function CardForm<T extends FieldValues>({
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={String(fieldConfig.name)}>
-                      {fieldConfig.label}
-                    </FieldLabel>
+                    {fieldConfig.link ? (
+                      <div className='flex items-center justify-between gap-2'>
+                        <FieldLabel htmlFor={String(fieldConfig.name)}>
+                          {fieldConfig.label}
+                        </FieldLabel>
+                        {fieldConfig.link}
+                      </div>
+                    ) : (
+                      <FieldLabel htmlFor={String(fieldConfig.name)}>
+                        {fieldConfig.label}
+                      </FieldLabel>
+                    )}
                     <Input
                       {...field}
                       value={String(field.value || "")}
@@ -121,7 +136,9 @@ export function CardForm<T extends FieldValues>({
                       autoComplete={fieldConfig.autoComplete ?? "off"}
                     />
                     {fieldConfig.description && (
-                      <FieldDescription>{fieldConfig.description}</FieldDescription>
+                      <FieldDescription className='text-xs'>
+                        {fieldConfig.description}
+                      </FieldDescription>
                     )}
                     {fieldState.invalid && fieldState.error && (
                       <FieldError errors={[fieldState.error]} />
@@ -133,10 +150,16 @@ export function CardForm<T extends FieldValues>({
           </FieldGroup>
         </form>
       </CardContent>
-      <CardFooter className="flex-col gap-2">
+      <CardFooter className='flex-col gap-2'>
         <Field orientation='horizontal'>
-          <Button type='submit' form='form-rhf-input' disabled={submitting} size='lg' className="w-full">
-            {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
+          <Button
+            type='submit'
+            form='form-rhf-input'
+            disabled={submitting}
+            size='lg'
+            className='w-full'
+          >
+            {submitting && <Loader2 className='w-4 h-4 animate-spin' />}
             {submitting ? buttonLoadingText : buttonText}
           </Button>
         </Field>
@@ -147,7 +170,11 @@ export function CardForm<T extends FieldValues>({
 }
 
 // Helper function to create a typed resolver that bypasses type conflicts
-function createTypedResolver<T extends FieldValues>(schema: z.ZodSchema<T>): Resolver<T> {
+function createTypedResolver<T extends FieldValues>(
+  schema: z.ZodSchema<T>,
+): Resolver<T> {
   // Use type assertion to bypass zodResolver compatibility issues
-  return (zodResolver as unknown as (schema: z.ZodSchema<T>) => Resolver<T>)(schema);
+  return (zodResolver as unknown as (schema: z.ZodSchema<T>) => Resolver<T>)(
+    schema,
+  );
 }
