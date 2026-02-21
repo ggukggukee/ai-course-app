@@ -56,6 +56,8 @@ export async function buyItem({
         status: true,
         payments: {
           select: {
+            id: true,
+            paymentId: true,
             paymentUrl: true,
           },
         },
@@ -72,9 +74,22 @@ export async function buyItem({
       if (
         order.status === "pending" &&
         order.payments.length > 0 &&
-        order.payments[0].paymentUrl
+        order.payments[0].paymentId
       ) {
-        return { url: order.payments[0].paymentUrl };
+        const qr = await getQr({
+          paymentId: Number(order.payments[0].paymentId),
+        });
+
+        if ("message" in qr) {
+          throw new Error(qr.message);
+        }
+
+        await prisma.payment.update({
+          where: { id: order.payments[0].id },
+          data: { status: "pending", paymentUrl: qr.Data },
+        });
+
+        return { url: qr.Data };
       }
 
       return {
