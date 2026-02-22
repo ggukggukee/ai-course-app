@@ -91,7 +91,7 @@ export const BlockEditor = ({
   }
 
   return (
-    <div className='flex h-full' ref={menuContainerRef}>
+    <div className='flex h-full flex-1' ref={menuContainerRef}>
       <div className='relative flex flex-col flex-1 h-full w-full'>
         <EditorContent editor={editor} className='flex-1' />
         {editor.options.editable && (

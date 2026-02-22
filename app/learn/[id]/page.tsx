@@ -5,10 +5,13 @@ import { PageWrapper } from "@/components/design/page-wrapper";
 import { Heading } from "@/components/design/typography";
 import { getBookPage } from "@/lib/db/bookPage/data";
 import { BlockEditor } from "@/components/tiptap/components/BlockEditor";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { LevelButtons } from "@/components/learn/level-buttons";
 
-export const generateMetadata = async ({ params }: { params: Promise<{ id: string }> }) => {
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -39,7 +42,7 @@ export const generateMetadata = async ({ params }: { params: Promise<{ id: strin
   };
 };
 
-export default async function DashboardPage({
+export default async function Page({
   params,
   searchParams,
 }: {
@@ -55,7 +58,7 @@ export default async function DashboardPage({
   }
 
   const { user } = session;
-  const { id } = await params
+  const { id } = await params;
 
   if (isNaN(Number(id))) {
     redirect("/learn");
@@ -80,24 +83,20 @@ export default async function DashboardPage({
   }
 
   return (
-    <PageWrapper className="max-w-4xl" noContainer>
+    <PageWrapper className='max-w-4xl flex flex-col flex-1' noContainer>
       <Heading as='h1' size='h3' weight='bold'>
         Обучение
       </Heading>
-      <div className="flex items-center gap-1 flex-wrap">
-        {bookPage.levels.map((level) => (
-          <Button key={level.id} variant={level.id === bookLevel.id ? 'outline' : 'secondary'} asChild>
-            <Link href={`/learn/${bookPage.id}?level=${level.id}`} replace>
-              {level.title}
-            </Link>
-          </Button>
-        ))}
-      </div>
       <BlockEditor
         key={`editor-${bookLevel.id}`}
         editable={false}
         content={JSON.parse(bookLevel.content)}
         solid={bookLevel.solid}
+      />
+      <LevelButtons
+        levels={bookPage.levels.map((x) => ({ id: x.id, title: x.title }))}
+        currentLevelId={bookLevel.id}
+        bookPageId={bookPage.id}
       />
     </PageWrapper>
   );
