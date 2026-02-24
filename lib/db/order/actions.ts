@@ -140,6 +140,7 @@ export async function buyItem({
         price: item.price,
         currency: item.currency,
         status: "pending",
+        externalId: payment.OrderId,
         payments: {
           create: {
             amount: item.price,

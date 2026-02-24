@@ -94,16 +94,17 @@ model Verification {
 }
 
 model Order {
-  id        Int      @id @default(autoincrement())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  itemId    Int
-  item      Item     @relation(fields: [itemId], references: [id])
-  price     Int
-  currency  String
-  status    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  itemId     Int
+  item       Item     @relation(fields: [itemId], references: [id])
+  externalId String
+  price      Int
+  currency   String
+  status     String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   payments Payment[]
 

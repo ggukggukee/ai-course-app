@@ -25,12 +25,17 @@ export default async function DashboardPage() {
 
   const { user } = session;
 
-  const [orders, items] = await Promise.all([getOrders({ userId: user.id }), getItems({ status: "active", userId: user.id })]);
+  const [orders, items] = await Promise.all([
+    getOrders({ userId: user.id }),
+    getItems({ status: "active", userId: user.id }),
+  ]);
 
   return (
     <PageWrapper>
-      <Heading as="h1" size="h3" weight="bold">Заказы</Heading>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <Heading as='h1' size='h3' weight='bold'>
+        Заказы
+      </Heading>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
         {orders.map((order) => (
           <Order key={order.id} order={order} />
         ))}

@@ -14,12 +14,21 @@ export async function getItems({
     const items = await prisma.item.findMany({
       where: {
         status,
-        orders: {
-          some: {
-            userId,
-            status: { not: "paid" },
+        OR: [
+          {
+            orders: {
+              some: {
+                userId,
+                status: { not: "paid" },
+              },
+            },
           },
-        },
+          {
+            orders: {
+              none: { userId },
+            },
+          },
+        ],
       },
       select: {
         id: true,

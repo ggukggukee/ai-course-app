@@ -42,6 +42,7 @@ export type OrderMinAggregateOutputType = {
   id: number | null
   userId: string | null
   itemId: number | null
+  externalId: string | null
   price: number | null
   currency: string | null
   status: string | null
@@ -53,6 +54,7 @@ export type OrderMaxAggregateOutputType = {
   id: number | null
   userId: string | null
   itemId: number | null
+  externalId: string | null
   price: number | null
   currency: string | null
   status: string | null
@@ -64,6 +66,7 @@ export type OrderCountAggregateOutputType = {
   id: number
   userId: number
   itemId: number
+  externalId: number
   price: number
   currency: number
   status: number
@@ -89,6 +92,7 @@ export type OrderMinAggregateInputType = {
   id?: true
   userId?: true
   itemId?: true
+  externalId?: true
   price?: true
   currency?: true
   status?: true
@@ -100,6 +104,7 @@ export type OrderMaxAggregateInputType = {
   id?: true
   userId?: true
   itemId?: true
+  externalId?: true
   price?: true
   currency?: true
   status?: true
@@ -111,6 +116,7 @@ export type OrderCountAggregateInputType = {
   id?: true
   userId?: true
   itemId?: true
+  externalId?: true
   price?: true
   currency?: true
   status?: true
@@ -209,6 +215,7 @@ export type OrderGroupByOutputType = {
   id: number
   userId: string
   itemId: number
+  externalId: string
   price: number
   currency: string
   status: string
@@ -243,6 +250,7 @@ export type OrderWhereInput = {
   id?: Prisma.IntFilter<"Order"> | number
   userId?: Prisma.StringFilter<"Order"> | string
   itemId?: Prisma.IntFilter<"Order"> | number
+  externalId?: Prisma.StringFilter<"Order"> | string
   price?: Prisma.IntFilter<"Order"> | number
   currency?: Prisma.StringFilter<"Order"> | string
   status?: Prisma.StringFilter<"Order"> | string
@@ -257,6 +265,7 @@ export type OrderOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   itemId?: Prisma.SortOrder
+  externalId?: Prisma.SortOrder
   price?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -274,6 +283,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
   userId?: Prisma.StringFilter<"Order"> | string
   itemId?: Prisma.IntFilter<"Order"> | number
+  externalId?: Prisma.StringFilter<"Order"> | string
   price?: Prisma.IntFilter<"Order"> | number
   currency?: Prisma.StringFilter<"Order"> | string
   status?: Prisma.StringFilter<"Order"> | string
@@ -288,6 +298,7 @@ export type OrderOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   itemId?: Prisma.SortOrder
+  externalId?: Prisma.SortOrder
   price?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -307,6 +318,7 @@ export type OrderScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Order"> | number
   userId?: Prisma.StringWithAggregatesFilter<"Order"> | string
   itemId?: Prisma.IntWithAggregatesFilter<"Order"> | number
+  externalId?: Prisma.StringWithAggregatesFilter<"Order"> | string
   price?: Prisma.IntWithAggregatesFilter<"Order"> | number
   currency?: Prisma.StringWithAggregatesFilter<"Order"> | string
   status?: Prisma.StringWithAggregatesFilter<"Order"> | string
@@ -315,6 +327,7 @@ export type OrderScalarWhereWithAggregatesInput = {
 }
 
 export type OrderCreateInput = {
+  externalId: string
   price: number
   currency: string
   status: string
@@ -329,6 +342,7 @@ export type OrderUncheckedCreateInput = {
   id?: number
   userId: string
   itemId: number
+  externalId: string
   price: number
   currency: string
   status: string
@@ -338,6 +352,7 @@ export type OrderUncheckedCreateInput = {
 }
 
 export type OrderUpdateInput = {
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -352,6 +367,7 @@ export type OrderUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   itemId?: Prisma.IntFieldUpdateOperationsInput | number
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -364,6 +380,7 @@ export type OrderCreateManyInput = {
   id?: number
   userId: string
   itemId: number
+  externalId: string
   price: number
   currency: string
   status: string
@@ -372,6 +389,7 @@ export type OrderCreateManyInput = {
 }
 
 export type OrderUpdateManyMutationInput = {
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -383,6 +401,7 @@ export type OrderUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   itemId?: Prisma.IntFieldUpdateOperationsInput | number
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -404,6 +423,7 @@ export type OrderCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   itemId?: Prisma.SortOrder
+  externalId?: Prisma.SortOrder
   price?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -421,6 +441,7 @@ export type OrderMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   itemId?: Prisma.SortOrder
+  externalId?: Prisma.SortOrder
   price?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -432,6 +453,7 @@ export type OrderMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   itemId?: Prisma.SortOrder
+  externalId?: Prisma.SortOrder
   price?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -549,6 +571,7 @@ export type OrderUncheckedUpdateManyWithoutItemNestedInput = {
 }
 
 export type OrderCreateWithoutUserInput = {
+  externalId: string
   price: number
   currency: string
   status: string
@@ -561,6 +584,7 @@ export type OrderCreateWithoutUserInput = {
 export type OrderUncheckedCreateWithoutUserInput = {
   id?: number
   itemId: number
+  externalId: string
   price: number
   currency: string
   status: string
@@ -602,6 +626,7 @@ export type OrderScalarWhereInput = {
   id?: Prisma.IntFilter<"Order"> | number
   userId?: Prisma.StringFilter<"Order"> | string
   itemId?: Prisma.IntFilter<"Order"> | number
+  externalId?: Prisma.StringFilter<"Order"> | string
   price?: Prisma.IntFilter<"Order"> | number
   currency?: Prisma.StringFilter<"Order"> | string
   status?: Prisma.StringFilter<"Order"> | string
@@ -610,6 +635,7 @@ export type OrderScalarWhereInput = {
 }
 
 export type OrderCreateWithoutPaymentsInput = {
+  externalId: string
   price: number
   currency: string
   status: string
@@ -623,6 +649,7 @@ export type OrderUncheckedCreateWithoutPaymentsInput = {
   id?: number
   userId: string
   itemId: number
+  externalId: string
   price: number
   currency: string
   status: string
@@ -647,6 +674,7 @@ export type OrderUpdateToOneWithWhereWithoutPaymentsInput = {
 }
 
 export type OrderUpdateWithoutPaymentsInput = {
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -660,6 +688,7 @@ export type OrderUncheckedUpdateWithoutPaymentsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   itemId?: Prisma.IntFieldUpdateOperationsInput | number
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -668,6 +697,7 @@ export type OrderUncheckedUpdateWithoutPaymentsInput = {
 }
 
 export type OrderCreateWithoutItemInput = {
+  externalId: string
   price: number
   currency: string
   status: string
@@ -680,6 +710,7 @@ export type OrderCreateWithoutItemInput = {
 export type OrderUncheckedCreateWithoutItemInput = {
   id?: number
   userId: string
+  externalId: string
   price: number
   currency: string
   status: string
@@ -717,6 +748,7 @@ export type OrderUpdateManyWithWhereWithoutItemInput = {
 export type OrderCreateManyUserInput = {
   id?: number
   itemId: number
+  externalId: string
   price: number
   currency: string
   status: string
@@ -725,6 +757,7 @@ export type OrderCreateManyUserInput = {
 }
 
 export type OrderUpdateWithoutUserInput = {
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -737,6 +770,7 @@ export type OrderUpdateWithoutUserInput = {
 export type OrderUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   itemId?: Prisma.IntFieldUpdateOperationsInput | number
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -748,6 +782,7 @@ export type OrderUncheckedUpdateWithoutUserInput = {
 export type OrderUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   itemId?: Prisma.IntFieldUpdateOperationsInput | number
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -758,6 +793,7 @@ export type OrderUncheckedUpdateManyWithoutUserInput = {
 export type OrderCreateManyItemInput = {
   id?: number
   userId: string
+  externalId: string
   price: number
   currency: string
   status: string
@@ -766,6 +802,7 @@ export type OrderCreateManyItemInput = {
 }
 
 export type OrderUpdateWithoutItemInput = {
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -778,6 +815,7 @@ export type OrderUpdateWithoutItemInput = {
 export type OrderUncheckedUpdateWithoutItemInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -789,6 +827,7 @@ export type OrderUncheckedUpdateWithoutItemInput = {
 export type OrderUncheckedUpdateManyWithoutItemInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
   price?: Prisma.IntFieldUpdateOperationsInput | number
   currency?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -831,6 +870,7 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   id?: boolean
   userId?: boolean
   itemId?: boolean
+  externalId?: boolean
   price?: boolean
   currency?: boolean
   status?: boolean
@@ -846,6 +886,7 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   userId?: boolean
   itemId?: boolean
+  externalId?: boolean
   price?: boolean
   currency?: boolean
   status?: boolean
@@ -859,6 +900,7 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   userId?: boolean
   itemId?: boolean
+  externalId?: boolean
   price?: boolean
   currency?: boolean
   status?: boolean
@@ -872,6 +914,7 @@ export type OrderSelectScalar = {
   id?: boolean
   userId?: boolean
   itemId?: boolean
+  externalId?: boolean
   price?: boolean
   currency?: boolean
   status?: boolean
@@ -879,7 +922,7 @@ export type OrderSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "itemId" | "price" | "currency" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "itemId" | "externalId" | "price" | "currency" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   item?: boolean | Prisma.ItemDefaultArgs<ExtArgs>
@@ -906,6 +949,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     id: number
     userId: string
     itemId: number
+    externalId: string
     price: number
     currency: string
     status: string
@@ -1340,6 +1384,7 @@ export interface OrderFieldRefs {
   readonly id: Prisma.FieldRef<"Order", 'Int'>
   readonly userId: Prisma.FieldRef<"Order", 'String'>
   readonly itemId: Prisma.FieldRef<"Order", 'Int'>
+  readonly externalId: Prisma.FieldRef<"Order", 'String'>
   readonly price: Prisma.FieldRef<"Order", 'Int'>
   readonly currency: Prisma.FieldRef<"Order", 'String'>
   readonly status: Prisma.FieldRef<"Order", 'String'>

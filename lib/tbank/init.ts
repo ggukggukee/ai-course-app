@@ -36,6 +36,8 @@ export async function initPayment({
     const values = Object.values(tokenObject).join("");
     const token = createHash("sha256").update(values).digest("hex");
 
+    const date = new Date(Date.now() + 1000 * 60 * 60 * 24 * 89);
+
     const body = {
       TerminalKey: terminalKey,
       Amount: amount * 100,
@@ -43,6 +45,7 @@ export async function initPayment({
       Description: description,
       Token: token,
       DATA: { Email: email },
+      RedirectDueDate: formatWithOffset(date), // 90 days
       Receipt: {
         Email: email,
         Taxation: "usn_income",
@@ -100,3 +103,22 @@ export async function initPayment({
     return { message: "Ошибка при создании платежа" };
   }
 }
+
+const formatWithOffset = (date: Date) => {
+  const pad = (num: number) => num.toString().padStart(2, "0");
+
+  const yyyy = date.getFullYear();
+  const mm = pad(date.getMonth() + 1);
+  const dd = pad(date.getDate());
+  const hh = pad(date.getHours());
+  const min = pad(date.getMinutes());
+  const ss = pad(date.getSeconds());
+
+  const offsetMinutes = date.getTimezoneOffset();
+  const offsetSign = offsetMinutes <= 0 ? "+" : "-";
+  const absOffset = Math.abs(offsetMinutes);
+  const offsetHours = pad(Math.floor(absOffset / 60));
+  const offsetMins = pad(absOffset % 60);
+
+  return `${yyyy}-${mm}-${dd}T${hh}:${min}:${ss}${offsetSign}${offsetHours}:${offsetMins}`;
+};
