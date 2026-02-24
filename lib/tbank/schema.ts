@@ -12,7 +12,6 @@ export const InitPaymentSchema = z.object({
   OrderId: z.string().min(1).max(36),
   Token: z.string().min(1),
   Description: z.string().min(1).max(140),
-  RedirectDueDate: z.string().min(1).max(36),
   DATA: z.object({
     Email: z.email().min(1).max(64),
   }),
@@ -39,7 +38,7 @@ export const InitPaymentSchema = z.object({
             message: "Сумма позиции должна быть не более 10 цифр",
           }),
         Tax: z.enum(["none", "vat0", "vat10", "vat20", "vat110", "vat120"]),
-      })
+      }),
     ),
   }),
 });
